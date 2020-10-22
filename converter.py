@@ -27,13 +27,9 @@ def checkValidity(s):
             loop_validity = False
         
         #check for unvalid format
-        if i > 0 and len(s) < 4:
-            if (s[i] == 'C') and (s[i-1] == 'I' or s[i-1] == 'V'):
-                loop_validity = False
-            if (s[i] == 'D') and (s[i-1] == 'I' or s[i-1] == 'V'):
-                loop_validity = False
-            elif s[i] == 'M' and (s[i-1] == 'I' or s[i-1] == 'V' or s[i-1] == 'X' or s[i-1] == 'C'):
-                loop_validity = False
+        if i < n-1:
+          if numeri_romani[s[i+1]] // numeri_romani[s[i]] > 10:
+            loop_validity = False
 
         #check not valid chars
         if s[i] not in numeri_romani:
@@ -58,12 +54,12 @@ def convert():
       'M': 1000,
     }
     
-    onkoValidi = False
-    while onkoValidi == False:
+    isValid = False
+    while isValid == False:
         s = input('Anna roomalainen luku: ')
         n = len(s)
         if checkValidity(s) == True:
-          onkoValidi = True
+          isValid = True
         else:
           print('Syöttämäsi roomalainen luku oli virheellinen. Tarkasta syöte.')
 
@@ -77,8 +73,8 @@ def convert():
                 arabic += numeri_romani[s[i]]
                 i += 1
             elif numeri_romani[s[i]] < numeri_romani[s[i+1]]:
-                lisattava = numeri_romani[s[i+1]]-numeri_romani[s[i]]
-                arabic += lisattava
+                to_add = numeri_romani[s[i+1]]-numeri_romani[s[i]]
+                arabic += to_add
                 i += 2
             elif numeri_romani[s[i]] == numeri_romani[s[i+1]]:  
                 romani = s[i]
@@ -91,10 +87,14 @@ def convert():
                     else:
                         i += 1
                         break
-                lisattava = count * numeri_romani[romani]
-                arabic += lisattava
+                to_add = count * numeri_romani[romani]
+                arabic += to_add
     print(arabic)
   
 
 if __name__ == "__main__":
     convert()
+
+# Kuinka tekisin globaalisti skaalautuvan ratkaisun?
+# 
+# Vastaus: Tekisin ReactJS -frontend + Node.js -backendin päälle verkkopalvelun, jolla tarkastettaisiin luvut.
