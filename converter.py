@@ -46,7 +46,9 @@ def convert(s):
       while i<n-1:
         if s[i] == s[i+1]:
           count += 1
+          i += 1
         else:
+          i += 1
           break
       lisattava = count * numeri_romani[romani]
       #print(lisattava)
@@ -58,7 +60,7 @@ def convert(s):
   
 
 if __name__ == "__main__":
-    #print('->', convert('MCMXCVII')) # 1997
+    print('->', convert('MCMXCVII')) # 1997
     # 1. lisää M = 1000                -> 1000
     # 2. vähennä M-C = 1000-100 = 900  -> 1900
     # 3. vähennä C-X = 100 - 10 = 90   -> 1990
@@ -71,5 +73,13 @@ if __name__ == "__main__":
     print('->', convert('IV')) # 4
     
     
-    #print('->', convert('MMMCMXCIX')) # 3999
+    print('->', convert('MMMCMXCIX')) # 3999
+    # 1. lisää M = 1000                 -> 1000
+    # 2. lisää M = 1000                 -> 2000
+    # 3. lisää M = 1000                 -> 3000
+    # 4. vähennä M - C = 1000-100 = 900 -> 3900
+    # 5. vähennä C - X = 100 - 10 = 90  -> 3990
+    # 6. vähennä X - I = 10 - 1 = 9     -> 3999
+
+
     #print('->', convert('XXXX')) # ValueError
