@@ -1,12 +1,7 @@
-def convert(s):
-  arabic = 0
+# Aloitettu 14:22
 
-  n = len(s)
-
-  if False:
-    s = input('Anna roomalainen luku:')
-  
-  # määritellään roomalaisten numeroiden arvot arabialaisina numeroina
+def checkValidity(s):
+  valid = False
   numeri_romani = {
     'I': 1,
     'V': 5,
@@ -16,70 +11,83 @@ def convert(s):
     'D': 500,
     'M': 1000,
   }
+  n = len(s)
+  
+  loop_validity = True
 
-  esiintyneet = {}
+  chars = {}
 
-  i = 0
-  while i < n-1:
+  for i in range(n):
+    #check for over 3 same chars in a row
+    if s[i] not in chars:
+      chars = {}
+      chars[s[i]] = 0
+    chars[s[i]] += 1
+    if chars[s[i]] > 3:
+      loop_validity = False
 
 
-    
+    #check not valid chars
+    if s[i] not in numeri_romani:
+      loop_validity = False
+      break
+  
+  if n > 0 and loop_validity == True:
+    return True
+  else:
+    return False
 
-    #print('vertailtavat:',s[i],'-',s[i+1])
-    
-    # Pienempi merkki isomman merkin vasemmalla puolella vähennetään isommasta, oikealla puolella oleva lisätään siihen.
-    if numeri_romani[s[i]] > numeri_romani[s[i+1]]:
-      #jos merkki on isompi kuin seuraava, niin pohja on s[i]
-      #print(s[i],'=',numeri_romani[s[i]])
-      arabic += numeri_romani[s[i]]
-      i += 1
-    elif numeri_romani[s[i]] < numeri_romani[s[i+1]]:
-      lisattava = numeri_romani[s[i+1]]-numeri_romani[s[i]]
-      #print(s[i+1],'-',s[i],'=',lisattava)
-      arabic += lisattava
-      i += 2
-    elif numeri_romani[s[i]] == numeri_romani[s[i+1]]:
-      
-      romani = s[i]
-      count = 2
-      i += 1
-      while i<n-1:
-        if s[i] == s[i+1]:
-          count += 1
-          i += 1
-        else:
-          i += 1
-          break
-      lisattava = count * numeri_romani[romani]
-      #print(lisattava)
-      arabic += lisattava
-    #print(arabic)
-    #if i < n:
-      #print('Seuraavana:',s[i],'jäljellä:',s[i:])
-  return arabic
+
+def convert():
+  arabic = 0
+  numeri_romani = {
+    'I': 1,
+    'V': 5,
+    'X': 10,
+    'L': 50,
+    'C': 100,
+    'D': 500,
+    'M': 1000,
+  }
+  
+  onkoValidi = False
+  while onkoValidi == False:
+    s = input('Anna roomalainen luku: ')
+    n = len(s)
+    if checkValidity(s) == True:
+      onkoValidi = True
+    else:
+      print('Syöttämäsi roomalainen luku oli virheellinen. Tarkasta syöte.')
+
+
+  if n == 1:
+    arabic += numeri_romani[s[0]]
+  else:
+    i = 0
+    while i < n-1:
+      if numeri_romani[s[i]] > numeri_romani[s[i+1]]:
+        arabic += numeri_romani[s[i]]
+        i += 1
+      elif numeri_romani[s[i]] < numeri_romani[s[i+1]]:
+        lisattava = numeri_romani[s[i+1]]-numeri_romani[s[i]]
+        arabic += lisattava
+        i += 2
+      elif numeri_romani[s[i]] == numeri_romani[s[i+1]]:
+        
+        romani = s[i]
+        count = 2
+        i += 1
+        while i<n-1:
+          if s[i] == s[i+1]:
+            count += 1
+            i += 1
+          else:
+            i += 1
+            break
+        lisattava = count * numeri_romani[romani]
+        arabic += lisattava
+  print(arabic)
   
 
 if __name__ == "__main__":
-    print('->', convert('MCMXCVII')) # 1997
-    # 1. lisää M = 1000                -> 1000
-    # 2. vähennä M-C = 1000-100 = 900  -> 1900
-    # 3. vähennä C-X = 100 - 10 = 90   -> 1990
-    # 4. lisää V = 5                   -> 1995
-    # 5. lisää I = 1                   -> 1996
-    # 6. lisää I = 1                   -> 1997
-
-
-
-    print('->', convert('IV')) # 4
-    
-    
-    print('->', convert('MMMCMXCIX')) # 3999
-    # 1. lisää M = 1000                 -> 1000
-    # 2. lisää M = 1000                 -> 2000
-    # 3. lisää M = 1000                 -> 3000
-    # 4. vähennä M - C = 1000-100 = 900 -> 3900
-    # 5. vähennä C - X = 100 - 10 = 90  -> 3990
-    # 6. vähennä X - I = 10 - 1 = 9     -> 3999
-
-
-    #print('->', convert('XXXX')) # ValueError
+    convert()
