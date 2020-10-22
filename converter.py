@@ -97,4 +97,8 @@ if __name__ == "__main__":
 
 # Kuinka tekisin globaalisti skaalautuvan ratkaisun?
 # 
-# Vastaus: Tekisin ReactJS -frontend + Node.js -backendin päälle verkkopalvelun, jolla tarkastettaisiin luvut.
+# Vastaus: Kevyesti yksinkertaistettuna ajatuksena seuraavasti.
+#
+# Tekisin ReactJS -frontend + Node.js -backendin päälle verkkopalvelun, jolla tarkastettaisiin luvut. 
+# Tähän opettelisin Docker-kontituksen ja se pyörimään AWS tai Azure -pilveen. 
+# Kevyt kieliversiointi taustalle ja HTTP-pyynnöstä request header "Accept-Language":n mukaan palautus
