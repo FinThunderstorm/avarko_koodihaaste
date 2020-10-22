@@ -25,7 +25,15 @@ def checkValidity(s):
         chars[s[i]] += 1
         if chars[s[i]] > 3:
             loop_validity = False
-
+        
+        #check for unvalid format
+        if i > 0 and len(s) < 4:
+            if (s[i] == 'C') and (s[i-1] == 'I' or s[i-1] == 'V'):
+                loop_validity = False
+            if (s[i] == 'D') and (s[i-1] == 'I' or s[i-1] == 'V'):
+                loop_validity = False
+            elif s[i] == 'M' and (s[i-1] == 'I' or s[i-1] == 'V' or s[i-1] == 'X' or s[i-1] == 'C'):
+                loop_validity = False
 
         #check not valid chars
         if s[i] not in numeri_romani:
